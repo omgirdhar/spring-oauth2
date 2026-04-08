@@ -104,17 +104,20 @@ This section explains how to obtain an access token using the **Client Credentia
 
 1. Open **Postman**.
 2. Create a new **POST request**.
-3. Set the URL to: http://localhost:8080/oauth2/token (your server port)
-4. Go to the **Authorization** tab:
+3. Set the URL to:
+```
+http://localhost:8080/oauth2/token (your server port)
+```
+5. Go to the **Authorization** tab:
    - Type: **Basic Auth**  
    - Username: your `clientId` (from `user` table)  
    - Password: your `clientSecret`  
-5. Go to the **Body** tab:
+6. Go to the **Body** tab:
    - Select **x-www-form-urlencoded**  
    - Add key-value pair:  
      - Key: `grant_type`  
      - Value: `client_credentials`
-6. Click **Send**.  
+7. Click **Send**.  
 
 **Example Response:**
 
