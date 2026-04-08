@@ -94,3 +94,64 @@ CREATE TABLE `oauth2_registered_client` (
   `token_settings` text NOT NULL,
   PRIMARY KEY (`id`)
 );
+```
+---
+## Using Postman to Test OAuth2 API
+
+This section explains how to obtain an access token using the **Client Credentials** grant and call a protected endpoint using Postman.
+
+### 1. Get an Access Token (Client Credentials Grant)
+
+1. Open **Postman**.
+2. Create a new **POST request**.
+3. Set the URL to: http://localhost:8080/oauth2/token (your server port)
+4. Go to the **Authorization** tab:
+   - Type: **Basic Auth**  
+   - Username: your `clientId` (from `user` table)  
+   - Password: your `clientSecret`  
+5. Go to the **Body** tab:
+   - Select **x-www-form-urlencoded**  
+   - Add key-value pair:  
+     - Key: `grant_type`  
+     - Value: `client_credentials`
+6. Click **Send**.  
+
+**Example Response:**
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "read write"
+}
+````
+
+> Copy the `access_token` from the response.
+
+---
+
+### 2. Call a Protected Endpoint (/hello)
+
+1. Create a new **GET request** in Postman.
+2. Set the URL to:
+
+```
+http://localhost:8080/api/hello
+```
+
+3. Go to the **Authorization** tab:
+
+   * Type: **Bearer Token**
+   * Token: paste the `access_token` you got from step 1
+
+4. Click **Send**.
+
+**Expected Response:**
+
+```json
+{
+  "message": "Hello, authenticated user!"
+}
+```
+---
